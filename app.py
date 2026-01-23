@@ -101,19 +101,13 @@ with st.sidebar:
                 st.session_state.validation_result = response
         else:
             st.warning("Please provide valid input parameters.")
-# Main Content Area
-# Header
-st.markdown(f"""
-    <div style='display: flex; align-items: center; gap: 15px; margin-bottom: 20px;'>
-        <h1 style='margin: 0; font-size: 2.5rem; font-weight: 800; color: #1E293B;'>Validation Dashboard</h1>
-    </div>
-""", unsafe_allow_html=True)
+
 
 # Main Content Area
 # Header
 st.markdown(f"""
     <div style='display: flex; align-items: center; gap: 15px; margin-bottom: 20px;'>
-        <h1 style='margin: 0; font-size: 2.5rem; font-weight: 800; color: #1E293B;'>Validation Dashboard</h1>
+        <h1 style='margin: 0; font-size: 2.5rem; font-weight: 800; color: #1E293B;'>IS Cable Validation Dashboard</h1>
     </div>
 """, unsafe_allow_html=True)
 
@@ -241,4 +235,41 @@ if result:
             st.info("No detailed validation steps returned.")
             
 else:
+    # 3-Step Instruction Flow using Native Streamlit Components
     st.info("👈 Enter parameters in the sidebar and click 'Run Validation' to start.")
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Create 3 columns for the instruction boxes
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        with st.container():
+            st.markdown("""
+                <div style='text-align: center; padding: 20px; background-color: #EFF6FF; border-radius: 10px; border: 1px solid #BFDBFE;'>
+                    <div style='font-size: 40px; margin-bottom: 10px;'>📝</div>
+                    <h4 style='color: #1E40AF; margin-bottom: 8px;'>1. Input Parameters</h4>
+                    <p style='color: #64748B; font-size: 0.9rem;'>Fill in the cable details in the sidebar.</p>
+                </div>
+            """, unsafe_allow_html=True)
+    
+    with col2:
+        with st.container():
+            st.markdown("""
+                <div style='text-align: center; padding: 20px; background-color: #EFF6FF; border-radius: 10px; border: 1px solid #BFDBFE;'>
+                    <div style='font-size: 40px; margin-bottom: 10px;'>🚀</div>
+                    <h4 style='color: #1E40AF; margin-bottom: 8px;'>2. Run Validation</h4>
+                    <p style='color: #64748B; font-size: 0.9rem;'>Click the validation button to process.</p>
+                </div>
+            """, unsafe_allow_html=True)
+    
+    with col3:
+        with st.container():
+            st.markdown("""
+                <div style='text-align: center; padding: 20px; background-color: #EFF6FF; border-radius: 10px; border: 1px solid #BFDBFE;'>
+                    <div style='font-size: 40px; margin-bottom: 10px;'>📊</div>
+                    <h4 style='color: #1E40AF; margin-bottom: 8px;'>3. View Results</h4>
+                    <p style='color: #64748B; font-size: 0.9rem;'>Get instant feedback and analysis.</p>
+                </div>
+            """, unsafe_allow_html=True)
+

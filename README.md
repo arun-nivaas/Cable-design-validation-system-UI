@@ -96,6 +96,13 @@ We have provided a convenient batch script for Windows users.
     -   **Run Validation**: Click the "🚀 Run Validation" button to send the data to the backend API.
     -   **View Results**: The main dashboard will display the confidence score, key metrics, and a detailed table of validation steps.
 
+## 🖼️ UI Preview
+
+![Cable Design Validation System UI](assets/ui_screenshot.png)
+
+*The application features a clean, modern interface with a 3-step workflow: Input Parameters → Run Validation → View Results*
+
+
 ## 📂 Project Structure
 
 ```text
