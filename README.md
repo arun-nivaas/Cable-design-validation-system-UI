@@ -5,7 +5,7 @@
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
 
-A modern, responsive dashboard for validating cable technical designs against international standards (e.g., IEC 60502-1). This application serves as the user interface for the Cable Design Validation System, providing engineers with real-time feedback, confidence scores, and detailed compliance analysis.
+A modern, responsive dashboard for validating cable technical designs against international standards (e.g., IS 1554-1). This application serves as the user interface for the Cable Design Validation System, providing engineers with real-time feedback, confidence scores, and detailed compliance analysis.
 
 ---
 
@@ -51,7 +51,7 @@ We have provided a convenient batch script for Windows users.
     ```powershell
     .\run.bat
     ```
-    *This script will automatically create a virtual environment, install dependencies, and launch the app.*
+    *This script requires [uv](https://github.com/astral-sh/uv) to be installed. It will automatically create a virtual environment, install dependencies, and launch the app.*
 
 ### Option 2: Manual Installation
 
@@ -113,7 +113,6 @@ Cable-design-validation-system-UI/
 │   ├── api_service.py   # API client for backend communication
 │   └── styles.py        # Custom CSS and branding logic
 ├── app.py               # Main Streamlit application entry point
-├── main.py              # Entry point script
 ├── requirements.txt     # Python dependencies
 ├── run.bat              # Windows automated run script
 └── README.md            # Project documentation
