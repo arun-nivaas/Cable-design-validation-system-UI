@@ -1,25 +1,27 @@
 import streamlit as st
 import json
 
+
 def load_branding():
     try:
-        with open('assets/branding.json', 'r') as f:
+        with open("assets/branding.json", "r") as f:
             return json.load(f)
     except FileNotFoundError:
         return {
             "primary_color": "#2563EB",
             "secondary_color": "#3B82F6",
             "background_color": "#FFFFFF",
-            "text_color": "#1E293B"
+            "text_color": "#1E293B",
         }
+
 
 def inject_custom_css():
     branding = load_branding()
     primary_color = branding.get("primary_color", "#2563EB")
-    
+
     # Minimal CSS for specific elements that need branding tweaks
     # Streamlit's config.toml handles the main theme (bg, primary color, font)
-    
+
     css = f"""
     <style>
         /* Import Inter font */
