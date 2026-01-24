@@ -32,7 +32,7 @@ with st.sidebar:
     st.markdown("---")
     
     # Initialize defaults for display to prevent scope errors
-    standard = "IEC 60502-1"
+    standard = "IS 1554-1"
     voltage = "N/A"
     conductor_mat = "N/A"
     csa = 0
@@ -40,7 +40,7 @@ with st.sidebar:
     request_data = None
     
     if input_mode == "Manual Entry":
-        standard = st.selectbox("Standard", ["IEC 60502-1", "BS 5467", "IEEE 1159"])
+        standard = st.selectbox("Standard", ["IS 1554-1"])
         voltage = st.selectbox("Voltage Rating", ["0.6/1 kV", "1.8/3 kV", "3.6/6 kV"])
         
         st.markdown("### Conductor")
@@ -65,7 +65,7 @@ with st.sidebar:
     elif input_mode == "Database/JSON Record":
         st.info("Simulate fetching a structured record from a database.")
         default_json = """{
-  "standard": "IEC 60502-1",
+  "standard": "IS 1554-1",
   "voltage": "0.6/1 kV",
   "conductor_material": "Cu",
   "conductor_class": "Class 2",
@@ -88,7 +88,7 @@ with st.sidebar:
 
     elif input_mode == "AI / Semi-Free-Text Input":
         st.info("Paste a raw cable description or requirement.")
-        default_text = "IEC 60502-1 cable, 10 sqmm Cu Class 2, PVC insulation 1.0 mm, LV 0.6/1 kV"
+        default_text = "IS 1554-1 cable, 10 sqmm Cu Class 2, PVC insulation 1.0 mm, LV 0.6/1 kV"
         text_input = st.text_area("Description", value=default_text, height=150)
         request_data = text_input
 
@@ -107,7 +107,7 @@ with st.sidebar:
 # Header
 st.markdown(f"""
     <div style='display: flex; align-items: center; gap: 15px; margin-bottom: 20px;'>
-        <h1 style='margin: 0; font-size: 2.5rem; font-weight: 800; color: #1E293B;'>IS Cable Validation Dashboard</h1>
+        <h1 style='margin: 0; font-size: 2.5rem; font-weight: 800; color: #1E293B;'>AI-Driven Indian Standard Cable Design Validator</h1>
     </div>
 """, unsafe_allow_html=True)
 
@@ -231,6 +231,7 @@ if result:
                 hide_index=True,
                 height=300
             )
+            st.caption("**Note:** This system can make mistakes, so please double-check the results.")
         else:
             st.info("No detailed validation steps returned.")
             
