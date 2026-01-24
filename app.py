@@ -105,7 +105,7 @@ with st.sidebar:
 
 # Main Content Area
 # Header
-st.markdown(f"""
+st.markdown("""
     <div style='display: flex; align-items: center; gap: 15px; margin-bottom: 20px;'>
         <h1 style='margin: 0; font-size: 2.5rem; font-weight: 800; color: #1E293B;'>AI-Driven Indian Standard Cable Design Validator</h1>
     </div>

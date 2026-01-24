@@ -4,6 +4,7 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
+![CI](https://github.com/arun-nivaas/Cable-design-validation-system-UI/actions/workflows/ci_cd.yml/badge.svg)
 
 A modern, responsive dashboard for validating cable technical designs against international standards (e.g., IS 1554-1). This application serves as the user interface for the Cable Design Validation System, providing engineers with real-time feedback, confidence scores, and detailed compliance analysis.
 
@@ -126,6 +127,20 @@ By default, it points to:
 base_url="http://127.0.0.1:8000"
 ```
 Modify this value if your backend service is hosted on a different port or server.
+
+## 🚀 Deployment
+
+### Streamlit Cloud (Recommended)
+
+This repository is optimized for deployment on **Streamlit Cloud**:
+
+1.  Push your code to GitHub.
+2.  Log in to [Streamlit Cloud](https://streamlit.io/cloud).
+3.  Click **New app** and select this repository (`Cable-design-validation-system-UI`).
+4.  Set the main file path to `app.py`.
+5.  Click **Deploy**.
+
+*The CI/CD pipeline configured in `.github/workflows/ci_cd.yml` will automatically test your code on every push to ensure stability.*
 
 ## 🤝 Contributing
 

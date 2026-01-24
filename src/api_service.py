@@ -1,5 +1,4 @@
 import requests
-import json
 
 class ApiService:
     def __init__(self, base_url="http://127.0.0.1:8000"):
