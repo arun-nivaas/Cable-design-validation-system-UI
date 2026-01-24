@@ -1,0 +1,11 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0
+rootdir: A:\Data Science\Cable-design-validation-system-UI
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.11.0, langsmith-0.4.49
+collected 3 items
+
+tests\test_api_service.py ...                                            [100%]
+
+============================== 3 passed in 0.03s ==============================
