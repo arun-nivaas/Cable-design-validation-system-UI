@@ -2,7 +2,7 @@ import requests
 
 
 class ApiService:
-    def __init__(self, base_url="http://127.0.0.1:8000"):
+    def __init__(self, base_url="https://is-cable-design-validation-system.onrender.com"):
         self.base_url = base_url
 
     def validate_cable_design(self, input_data: int | str | dict) -> dict:
