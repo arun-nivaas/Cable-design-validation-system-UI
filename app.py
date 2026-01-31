@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from src.styles import inject_custom_css, load_branding
 from src.api_service import ApiService
+from typing import Dict, Any, List
+import json
 
 # Page Configuration
 st.set_page_config(
@@ -37,7 +39,7 @@ with st.sidebar:
     conductor_mat = "N/A"
     csa = 0
 
-    request_data = None
+    request_data: Dict[str, Any] = {}
 
     if input_mode == "Manual Entry":
         standard = st.selectbox("Standard", ["IS 1554-1"])
@@ -53,45 +55,57 @@ with st.sidebar:
         thickness = st.number_input("Thickness (mm)", value=1.0, step=0.1)
 
         request_data = {
-            "standard": standard,
-            "voltage": voltage,
-            "conductor_material": conductor_mat,
-            "conductor_class": conductor_class,
-            "csa": csa,
-            "insulation_material": insulation_mat,
-            "insulation_thickness": thickness,
-        }
+        "input_mode": "manual",
+        "data": {
+        "standard": standard,
+        "voltage": voltage,
+        "conductor_material": conductor_mat,
+        "conductor_class": conductor_class,
+        "csa": csa,
+        "insulation_material": insulation_mat,
+        "insulation_thickness": thickness,
+    }
+}
 
     elif input_mode == "Database/JSON Record":
         st.info("Simulate fetching a structured record from a database.")
         default_json = """{
-  "standard": "IS 1554-1",
-  "voltage": "0.6/1 kV",
-  "conductor_material": "Cu",
-  "conductor_class": "Class 2",
-  "csa": 10,
-  "insulation_material": "PVC",
-  "insulation_thickness": 1.0
-}"""
-        json_input = st.text_area("JSON Record", value=default_json, height=250)
-        try:
-            import json
+            "standard": "IS 1554-1",
+            "voltage": "0.6/1 kV",
+            "conductor_material": "Cu",
+            "conductor_class": "Class 2",
+            "csa": 10,
+            "insulation_material": "PVC",
+            "insulation_thickness": 1.0
+        }"""
 
-            request_data = json.loads(json_input)
+        json_input = st.text_area("JSON Record", value=default_json, height=250)
+
+        try:
+            request_data = {
+            "input_mode": "json",
+            "data": json.loads(json_input)
+            }
+            
             # Update display variables from JSON
-            standard = request_data.get("standard", standard)
-            voltage = request_data.get("voltage", voltage)
-            conductor_mat = request_data.get("conductor_material", conductor_mat)
-            csa = request_data.get("csa", csa)
+            standard = request_data.get("data", {}).get("standard", standard)
+            voltage = request_data.get("data", {}).get("voltage", voltage)
+            conductor_mat = request_data.get("data", {}).get("conductor_material", conductor_mat)
+            csa = request_data.get("data", {}).get("csa", csa)
         except json.JSONDecodeError:
             st.error("Invalid JSON format")
-            request_data = None
+            request_data = {}
 
     elif input_mode == "AI / Semi-Free-Text Input":
         st.info("Paste a raw cable description or requirement.")
         default_text = "IS 1554-1 cable, 10 sqmm Cu Class 2, PVC insulation 1.0 mm, LV 0.6/1 kV"
         text_input = st.text_area("Description", value=default_text, height=150)
-        request_data = text_input
+        request_data = {
+        "input_mode": "free_text",
+        "data": {
+            "description": text_input
+        }
+    }
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -130,11 +144,8 @@ if result:
 
     # 2. Parse Success Response
     # Confidence Score (Handle nested dict or flat value if legacy)
-    confidence_data = result.get("confidence", {})
-    if isinstance(confidence_data, dict):
-        score_val = confidence_data.get("overall", 0)
-    else:
-        score_val = confidence_data  # fallback if simple float
+    confidence_data: Dict[str, Any] = result.get("confidence", {})
+    score_val = confidence_data.get("overall", 0)
 
     # Convert 0.91 -> 91
     score_pct = int(float(score_val) * 100)
@@ -224,7 +235,7 @@ if result:
         validation_items = result.get("validation", [])
         if validation_items:
             # Map new structure to table
-            table_data = []
+            table_data:List[Dict[str,Any]] = []
             for item in validation_items:
                 table_data.append(
                     {
@@ -237,10 +248,10 @@ if result:
                     }
                 )
 
-            df = pd.DataFrame(table_data)
+            df: pd.DataFrame = pd.DataFrame(table_data)
 
             # Use Styler for pill badges
-            def style_status(val):
+            def style_status(val: Any) -> str:
                 s = str(val).upper()
                 if "PASS" in s:
                     return "background-color: #DCFCE7; color: #166534; padding: 4px 12px; border-radius: 99px; font-weight: 600;"
