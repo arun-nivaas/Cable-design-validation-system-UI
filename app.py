@@ -55,17 +55,17 @@ with st.sidebar:
         thickness = st.number_input("Thickness (mm)", value=1.0, step=0.1)
 
         request_data = {
-        "input_mode": "manual",
-        "data": {
-        "standard": standard,
-        "voltage": voltage,
-        "conductor_material": conductor_mat,
-        "conductor_class": conductor_class,
-        "csa": csa,
-        "insulation_material": insulation_mat,
-        "insulation_thickness": thickness,
-    }
-}
+            "input_mode": "manual",
+            "data": {
+                "standard": standard,
+                "voltage": voltage,
+                "conductor_material": conductor_mat,
+                "conductor_class": conductor_class,
+                "csa": csa,
+                "insulation_material": insulation_mat,
+                "insulation_thickness": thickness,
+            },
+        }
 
     elif input_mode == "Database/JSON Record":
         st.info("Simulate fetching a structured record from a database.")
@@ -82,11 +82,8 @@ with st.sidebar:
         json_input = st.text_area("JSON Record", value=default_json, height=250)
 
         try:
-            request_data = {
-            "input_mode": "json",
-            "data": json.loads(json_input)
-            }
-            
+            request_data = {"input_mode": "json", "data": json.loads(json_input)}
+
             # Update display variables from JSON
             standard = request_data.get("data", {}).get("standard", standard)
             voltage = request_data.get("data", {}).get("voltage", voltage)
@@ -100,12 +97,7 @@ with st.sidebar:
         st.info("Paste a raw cable description or requirement.")
         default_text = "IS 1554-1 cable, 10 sqmm Cu Class 2, PVC insulation 1.0 mm, LV 0.6/1 kV"
         text_input = st.text_area("Description", value=default_text, height=150)
-        request_data = {
-        "input_mode": "free_text",
-        "data": {
-            "description": text_input
-        }
-    }
+        request_data = {"input_mode": "free_text", "data": {"description": text_input}}
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -235,7 +227,7 @@ if result:
         validation_items = result.get("validation", [])
         if validation_items:
             # Map new structure to table
-            table_data:List[Dict[str,Any]] = []
+            table_data: List[Dict[str, Any]] = []
             for item in validation_items:
                 table_data.append(
                     {
