@@ -11,8 +11,8 @@ def test_validate_cable_design_success():
     mock_response: Dict[str, Any] = {"confidence": 0.95, "is_out_of_scope": False, "validation": []}
 
     input_data: Dict[str, Any] = {
-    "input_mode": "json",
-    "data": {"standard": "IS 1554-1", "voltage": "0.6/1 kV"},
+        "input_mode": "json",
+        "data": {"standard": "IS 1554-1", "voltage": "0.6/1 kV"},
     }
 
     # Act
@@ -31,13 +31,12 @@ def test_validate_cable_design_success():
 
 
 def test_validate_cable_design_free_text_payload():
-   
     service = ApiService()
 
     payload: Dict[str, Any] = {
-    "input_mode": "free_text",
-    "data": {"description": "Cable design query"},
-}
+        "input_mode": "free_text",
+        "data": {"description": "Cable design query"},
+    }
 
     with patch("requests.post") as mock_post:
         mock_post.return_value.status_code = 200
@@ -48,11 +47,12 @@ def test_validate_cable_design_free_text_payload():
     call_kwargs = mock_post.call_args.kwargs
     assert call_kwargs["json"] == payload
 
+
 def test_validate_cable_design_api_error():
     """Test handling of API errors"""
     service = ApiService()
 
-    payload:Dict[str, Any] = {
+    payload: Dict[str, Any] = {
         "input_mode": "json",
         "data": {"standard": "IS 1554-1"},
     }
